@@ -33,19 +33,27 @@ public class Pathmaker : MonoBehaviour {
 			float mynum = Random.Range(0.0f, 1.0f);
 			if (mynum < 0.25f)
 			{
-				transform.Rotate(90f, 0f, 0f);
+				transform.Rotate(0, 90f, 0f);
 			}
 			else if (mynum > 0.24f && mynum < 0.6f)
 			{
-				transform.Rotate(-90f, 0f, 0f);
+				transform.Rotate(0, -90f, 0f);
 			}
 			else if (mynum > 0.98f && mynum < 1.0)
 			{
 				Instantiate(pathmakerSpherePrefab, transform.position,Quaternion.Euler(0f,0f,0f));
 			}
+			Instantiate(floorPrefab, transform.position, Quaternion.Euler(0f, 0f, 0f));
+			transform.Translate(5f, 0f, 0f); 
+			counter++;
+		}
+		else
+		{
+			Destroy(gameObject);
 		}
 
-		Instantiate(floorPrefab, transform.position, Quaternion.Euler(0f, 0f, 0f));
+		
+		
 //		If counter is less than 50, then:
 //			Generate a random number from 0.0f to 1.0f;
 //			If random number is less than 0.25f, then rotate myself 90 degrees;
