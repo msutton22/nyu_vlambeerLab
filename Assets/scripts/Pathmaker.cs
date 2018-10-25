@@ -17,6 +17,8 @@ public class Pathmaker : MonoBehaviour {
 
 	public Transform pathmakerSpherePrefab;
 
+	public static int globalTileCount = 0;
+
 // STEP 2: ============================================================================================
 // translate the pseudocode below
 
@@ -28,20 +30,22 @@ public class Pathmaker : MonoBehaviour {
 
 	void Update()
 	{
+		globalTileCount++;
+		Debug.Log(globalTileCount);
 		if (counter < 50)
 		{
 			float mynum = Random.Range(0.0f, 1.0f);
-			if (mynum < 0.25f)
+			if (mynum < 0.15f)
 			{
 				transform.Rotate(0, 90f, 0f);
 			}
-			else if (mynum > 0.24f && mynum < 0.6f)
+			else if (mynum > 0.14f && mynum < 0.3f)
 			{
 				transform.Rotate(0, -90f, 0f);
 			}
-			else if (mynum > 0.98f && mynum < 1.0)
+			else if (mynum > 0.975f && mynum < 1.0f)
 			{
-				Instantiate(pathmakerSpherePrefab, transform.position,Quaternion.Euler(0f,0f,0f));
+				Instantiate(pathmakerSpherePrefab,transform.position,Quaternion.Euler(0f,0f,0f));
 			}
 			Instantiate(floorPrefab, transform.position, Quaternion.Euler(0f, 0f, 0f));
 			transform.Translate(5f, 0f, 0f); 
@@ -52,7 +56,10 @@ public class Pathmaker : MonoBehaviour {
 			Destroy(gameObject);
 		}
 
-		
+		if (globalTileCount > 500)
+		{
+			Destroy(gameObject);
+		}
 		
 //		If counter is less than 50, then:
 //			Generate a random number from 0.0f to 1.0f;
