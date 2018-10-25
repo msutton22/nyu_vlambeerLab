@@ -18,6 +18,8 @@ public class Pathmaker : MonoBehaviour {
 	public Transform pathmakerSpherePrefab;
 
 	public static int globalTileCount = 0;
+	private int randLifetime;
+	private float likelySpawn;
 
 // STEP 2: ============================================================================================
 // translate the pseudocode below
@@ -27,7 +29,11 @@ public class Pathmaker : MonoBehaviour {
 //	Declare a public Transform called floorPrefab, assign the prefab in inspector;
 //	Declare a public Transform called pathmakerSpherePrefab, assign the prefab in inspector; 		// you'll have to make a "pathmakerSphere" prefab later
 
-
+	void Start()
+	{
+		randLifetime = Random.Range(100, 500);
+		likelySpawn = Random.Range(0.7f, 0.98f);
+	}
 	void Update()
 	{
 		globalTileCount++;
@@ -39,11 +45,11 @@ public class Pathmaker : MonoBehaviour {
 			{
 				transform.Rotate(0, 90f, 0f);
 			}
-			else if (mynum > 0.14f && mynum < 0.3f)
+			else if (mynum > 0.14f && mynum < 0.25f)
 			{
 				transform.Rotate(0, -90f, 0f);
 			}
-			else if (mynum > 0.975f && mynum < 1.0f)
+			else if (mynum > likelySpawn && mynum < 1.0f)
 			{
 				Instantiate(pathmakerSpherePrefab,transform.position,Quaternion.Euler(0f,0f,0f));
 			}
@@ -56,7 +62,7 @@ public class Pathmaker : MonoBehaviour {
 			Destroy(gameObject);
 		}
 
-		if (globalTileCount > 500)
+		if (globalTileCount > randLifetime)
 		{
 			Destroy(gameObject);
 		}
