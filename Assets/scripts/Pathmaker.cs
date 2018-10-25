@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
 // put this script on a Sphere... it will move around, and drop a path of floor tiles behind it
 
 public class Pathmaker : MonoBehaviour {
-	
 	private int counter = 0;
 
 	public Transform floorPrefab1;
@@ -97,6 +96,9 @@ public class Pathmaker : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
+			counter = 0;
+			globalTileCount = 0;
+			Destroy(gameObject);
 			int scene = SceneManager.GetActiveScene().buildIndex;
 			SceneManager.LoadScene(scene);
 		}
