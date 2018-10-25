@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // MAZE PROC GEN LAB
 // all students: complete steps 1-6, as listed in this file
@@ -13,13 +14,18 @@ public class Pathmaker : MonoBehaviour {
 	
 	private int counter = 0;
 
-	public Transform floorPrefab;
+	public Transform floorPrefab1;
 
 	public Transform pathmakerSpherePrefab;
+
+	public Transform floorPrefab2;
+
+	public Transform floorPrefab3;
 
 	public static int globalTileCount = 0;
 	private int randLifetime;
 	private float likelySpawn;
+	private int randColor;
 
 // STEP 2: ============================================================================================
 // translate the pseudocode below
@@ -31,11 +37,12 @@ public class Pathmaker : MonoBehaviour {
 
 	void Start()
 	{
-		randLifetime = Random.Range(100, 500);
+		randLifetime = Random.Range(100, 300);
 		likelySpawn = Random.Range(0.7f, 0.98f);
 	}
 	void Update()
 	{
+		
 		globalTileCount++;
 		Debug.Log(globalTileCount);
 		if (counter < 50)
@@ -53,7 +60,27 @@ public class Pathmaker : MonoBehaviour {
 			{
 				Instantiate(pathmakerSpherePrefab,transform.position,Quaternion.Euler(0f,0f,0f));
 			}
-			Instantiate(floorPrefab, transform.position, Quaternion.Euler(0f, 0f, 0f));
+
+			randColor = Random.Range(1, 4);
+			
+			if (randColor == 1)
+			{
+				Instantiate(floorPrefab1, transform.position, Quaternion.Euler(0f, 0f, 0f));
+				
+			}
+
+			else if (randColor == 2)
+			{
+				Instantiate(floorPrefab2, transform.position, Quaternion.Euler(0f, 0f, 0f));
+			
+			}
+			
+			else if (randColor == 3)
+			{
+				Instantiate(floorPrefab3, transform.position, Quaternion.Euler(0f, 0f, 0f));
+				
+			}
+	
 			transform.Translate(5f, 0f, 0f); 
 			counter++;
 		}
@@ -66,7 +93,13 @@ public class Pathmaker : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
-		
+
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			int scene = SceneManager.GetActiveScene().buildIndex;
+			SceneManager.LoadScene(scene);
+		}
 //		If counter is less than 50, then:
 //			Generate a random number from 0.0f to 1.0f;
 //			If random number is less than 0.25f, then rotate myself 90 degrees;
