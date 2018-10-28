@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 // MAZE PROC GEN LAB
 // all students: complete steps 1-6, as listed in this file
@@ -11,7 +13,7 @@ using UnityEngine.SceneManagement;
 // put this script on a Sphere... it will move around, and drop a path of floor tiles behind it
 
 public class Pathmaker : MonoBehaviour {
-	private int counter = 0;
+	public static int counter = 0;
 
 	public Transform floorPrefab1;
 
@@ -26,6 +28,7 @@ public class Pathmaker : MonoBehaviour {
 	private float likelySpawn;
 	private int randColor;
 
+
 // STEP 2: ============================================================================================
 // translate the pseudocode below
 
@@ -36,15 +39,16 @@ public class Pathmaker : MonoBehaviour {
 
 	void Start()
 	{
-		randLifetime = Random.Range(100, 300);
+		gameObject.SetActive(true);
+			
+		randLifetime = Random.Range(10, 200);
+		//Debug.Log(randLifetime);
 		likelySpawn = Random.Range(0.7f, 0.98f);
 	}
 	void Update()
 	{
-		
-		globalTileCount++;
 		Debug.Log(globalTileCount);
-		if (counter < 50)
+		if (globalTileCount < randLifetime)
 		{
 			float mynum = Random.Range(0.0f, 1.0f);
 			if (mynum < 0.15f)
@@ -81,27 +85,15 @@ public class Pathmaker : MonoBehaviour {
 			}
 	
 			transform.Translate(5f, 0f, 0f); 
-			counter++;
+			globalTileCount++;
+
 		}
 		else
 		{
 			Destroy(gameObject);
 		}
 
-		if (globalTileCount > randLifetime)
-		{
-			Destroy(gameObject);
-		}
-
-
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			counter = 0;
-			globalTileCount = 0;
-			Destroy(gameObject);
-			int scene = SceneManager.GetActiveScene().buildIndex;
-			SceneManager.LoadScene(scene);
-		}
+	
 //		If counter is less than 50, then:
 //			Generate a random number from 0.0f to 1.0f;
 //			If random number is less than 0.25f, then rotate myself 90 degrees;
