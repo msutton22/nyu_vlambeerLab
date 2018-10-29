@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Xml.Xsl;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
+using Button = UnityEngine.UI.Button;
 using Debug = UnityEngine.Debug;
 
 // MAZE PROC GEN LAB
@@ -13,7 +16,6 @@ using Debug = UnityEngine.Debug;
 // put this script on a Sphere... it will move around, and drop a path of floor tiles behind it
 
 public class Pathmaker : MonoBehaviour {
-	public static int counter = 0;
 
 	public Transform floorPrefab1;
 
@@ -22,6 +24,7 @@ public class Pathmaker : MonoBehaviour {
 	public Transform floorPrefab2;
 
 	public Transform floorPrefab3;
+
 
 	public static int globalTileCount = 0;
 	private int randLifetime;
@@ -47,15 +50,17 @@ public class Pathmaker : MonoBehaviour {
 	}
 	void Update()
 	{
+		
 		Debug.Log(globalTileCount);
 		if (globalTileCount < randLifetime)
 		{
 			float mynum = Random.Range(0.0f, 1.0f);
-			if (mynum < 0.15f)
+			
+			if (mynum < 0.20f)
 			{
 				transform.Rotate(0, 90f, 0f);
 			}
-			else if (mynum > 0.14f && mynum < 0.25f)
+			else if (mynum > 0.19f && mynum < 0.30f)
 			{
 				transform.Rotate(0, -90f, 0f);
 			}
@@ -108,6 +113,8 @@ public class Pathmaker : MonoBehaviour {
 //			Destroy my game object; 		// self destruct if I've made enough tiles already
 	}
 
+	
+	
 	} // end of class scope
 
 // MORE STEPS BELOW!!!........
